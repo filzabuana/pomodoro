@@ -28,6 +28,11 @@
           <span class="sync-text">{{ syncLabel }}</span>
         </button>
 
+        <!-- About PomoSheets & Tutorial Button -->
+        <button @click="$emit('open-pomosheets')" class="nav-icon-btn" title="Tentang PomoSheets & Tutorial">
+          <Info class="icon" />
+        </button>
+
         <!-- About Pomodoro Button -->
         <button @click="$emit('open-about')" class="nav-icon-btn" title="Tentang Teknik Pomodoro">
           <BookOpen class="icon" />
@@ -55,11 +60,11 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Settings, BarChart2, Sun, Moon, BookOpen, Cloud, CloudOff, RefreshCw } from 'lucide-vue-next'
+import { Settings, BarChart2, Sun, Moon, BookOpen, Cloud, CloudOff, RefreshCw, Info } from 'lucide-vue-next'
 import { useSettings } from '../composables/useSettings'
 import { useSync } from '../composables/useSync'
 
-defineEmits(['open-settings', 'open-stats', 'open-about'])
+defineEmits(['open-settings', 'open-stats', 'open-about', 'open-pomosheets'])
 
 const { settings, toggleTheme } = useSettings()
 const { syncStatus, lastSyncTime, isOnline } = useSync()

@@ -8,6 +8,7 @@
       @open-settings="showSettings = true" 
       @open-stats="showStats = true" 
       @open-about="showAbout = true"
+      @open-pomosheets="showPomosheets = true"
     />
 
     <!-- Main Content Area -->
@@ -56,10 +57,16 @@
     <!-- App Footer -->
     <footer class="app-footer">
       <div class="footer-content">
-        <button @click="showAbout = true" class="footer-about-link">
-          <span class="footer-tomato">🍅</span>
-          <span>Pelajari Teknik Pomodoro</span>
-        </button>
+        <div class="footer-links">
+          <button @click="showPomosheets = true" class="footer-link-btn highlight">
+            <Sparkles class="footer-icon text-indigo" />
+            <span>Tentang PomoSheets & Tutorial</span>
+          </button>
+          <button @click="showAbout = true" class="footer-link-btn">
+            <span class="footer-tomato">🍅</span>
+            <span>Teknik Pomodoro</span>
+          </button>
+        </div>
         <div class="footer-author">
           <span class="credit-text">by <strong class="author-name">Filza Buana Putra</strong></span>
         </div>
@@ -67,6 +74,11 @@
     </footer>
 
     <!-- Modals -->
+    <AboutPomosheetsModal
+      v-if="showPomosheets"
+      @close="showPomosheets = false"
+    />
+
     <AboutPomodoroModal
       v-if="showAbout"
       @close="showAbout = false"
@@ -92,7 +104,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Clock, ListTodo } from 'lucide-vue-next'
+import { Clock, ListTodo, Sparkles } from 'lucide-vue-next'
 import Navbar from './components/Navbar.vue'
 import PomodoroTimer from './components/PomodoroTimer.vue'
 import CurrentTaskBanner from './components/CurrentTaskBanner.vue'
@@ -101,6 +113,7 @@ import SettingsModal from './components/SettingsModal.vue'
 import StatsModal from './components/StatsModal.vue'
 import SetupGuideModal from './components/SetupGuideModal.vue'
 import AboutPomodoroModal from './components/AboutPomodoroModal.vue'
+import AboutPomosheetsModal from './components/AboutPomosheetsModal.vue'
 import { usePomodoro } from './composables/usePomodoro'
 import { useTodos } from './composables/useTodos'
 
@@ -112,6 +125,7 @@ const showSettings = ref(false)
 const showStats = ref(false)
 const showGuide = ref(false)
 const showAbout = ref(false)
+const showPomosheets = ref(false)
 
 const openGuideFromSettings = () => {
   showSettings.value = false
@@ -315,28 +329,50 @@ const modeAccentStyle = computed(() => {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
-.footer-about-link {
+.footer-links {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: var(--text-secondary);
-  padding: 0.4rem 0.85rem;
+  padding: 0.35rem 0.85rem;
   background: var(--bg-input);
   border: 1px solid var(--border-color);
   border-radius: 999px;
   transition: all 0.2s ease;
 }
 
-.footer-about-link:hover {
+.footer-link-btn:hover {
   color: var(--text-primary);
   border-color: var(--border-active);
   background: var(--bg-card-hover);
   transform: translateY(-1px);
+}
+
+.footer-link-btn.highlight {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--text-primary);
+}
+
+.footer-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.text-indigo {
+  color: var(--accent-primary);
 }
 
 .footer-tomato {
@@ -346,7 +382,7 @@ const modeAccentStyle = computed(() => {
 .footer-author {
   display: flex;
   align-items: center;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--text-muted);
 }
 
@@ -361,5 +397,17 @@ const modeAccentStyle = computed(() => {
   background: linear-gradient(135deg, var(--text-primary) 20%, var(--accent-focus) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.65rem;
+  }
+  .footer-links {
+    justify-content: center;
+  }
 }
 </style>
