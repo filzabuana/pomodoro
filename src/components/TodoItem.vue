@@ -269,4 +269,37 @@ const cancelEdit = () => {
   width: 15px;
   height: 15px;
 }
+
+@media (max-width: 480px) {
+  .todo-item {
+    padding: 0.65rem 0.65rem;
+    gap: 0.5rem;
+    border-radius: 14px;
+  }
+
+  .todo-title {
+    font-size: 0.84rem;
+  }
+
+  .pomo-badge {
+    padding: 0.15rem 0.45rem;
+    font-size: 0.7rem;
+    gap: 0.2rem;
+  }
+
+  .todo-actions {
+    opacity: 1;
+    gap: 0.2rem;
+  }
+
+  .action-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .action-icon {
+    width: 13px;
+    height: 13px;
+  }
+}
 </style>

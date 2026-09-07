@@ -78,10 +78,10 @@
 
       <!-- Empty State -->
       <div v-else class="empty-state">
-        <div class="empty-icon">📝</div>
+        <ClipboardList class="empty-icon-svg" />
         <p class="empty-text">
-          <span v-if="filter === 'completed'">Belum ada tugas yang selesai. Semangat! 💪</span>
-          <span v-else-if="filter === 'active'">Semua tugas sudah selesai! Waktunya istirahat ☕</span>
+          <span v-if="filter === 'completed'">Belum ada tugas yang selesai. Tetap semangat!</span>
+          <span v-else-if="filter === 'active'">Semua tugas sudah selesai! Kerja bagus.</span>
           <span v-else>Belum ada tugas. Tambahkan tugas pertamamu di atas!</span>
         </p>
       </div>
@@ -101,7 +101,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { Plus } from 'lucide-vue-next'
+import { Plus, ClipboardList } from 'lucide-vue-next'
 import { useTodos } from '../composables/useTodos'
 import { useSettings } from '../composables/useSettings'
 import TodoItem from './TodoItem.vue'
@@ -335,10 +335,12 @@ const estimatedRemainingMinutes = computed(() => {
   color: var(--text-muted);
 }
 
-.empty-icon {
-  font-size: 2.5rem;
+.empty-icon-svg {
+  width: 44px;
+  height: 44px;
   margin-bottom: 0.75rem;
-  opacity: 0.7;
+  opacity: 0.5;
+  color: var(--text-muted);
 }
 
 .empty-text {
@@ -359,5 +361,47 @@ const estimatedRemainingMinutes = computed(() => {
 
 .estimated-time {
   font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .todo-card {
+    padding: 1.15rem 0.85rem;
+    border-radius: 20px;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  .filter-tab {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.72rem;
+  }
+
+  .task-input {
+    font-size: 0.88rem;
+  }
+
+  .est-stepper {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.75rem;
+  }
+
+  .step-btn {
+    width: 20px;
+    height: 20px;
+  }
+
+  .submit-task-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .todo-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+  }
 }
 </style>

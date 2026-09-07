@@ -2,7 +2,10 @@
   <div class="modal-overlay" @click.self="$emit('close')">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title">📈 Statistik & Riwayat Fokus</h3>
+        <h3 class="modal-title">
+          <BarChart2 class="modal-header-icon" />
+          <span>Statistik & Riwayat Fokus</span>
+        </h3>
         <button @click="$emit('close')" class="close-btn">
           <X class="icon" />
         </button>
@@ -12,7 +15,7 @@
         <!-- 3 Stat Highlight Cards -->
         <div class="stats-grid">
           <div class="stat-card">
-            <span class="stat-icon">⏱️</span>
+            <Clock class="stat-icon-svg text-accent" />
             <span class="stat-value">{{ formattedFocusTime }}</span>
             <span class="stat-label">Total Waktu Fokus</span>
           </div>
@@ -24,7 +27,7 @@
           </div>
 
           <div class="stat-card">
-            <span class="stat-icon">✅</span>
+            <CheckCircle2 class="stat-icon-svg text-green" />
             <span class="stat-value">{{ completedTasksCount }}</span>
             <span class="stat-label">Tugas Tuntas</span>
           </div>
@@ -72,7 +75,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { X } from 'lucide-vue-next'
+import { X, BarChart2, Clock, CheckCircle2 } from 'lucide-vue-next'
 import { storage } from '../services/storage'
 import { useTodos } from '../composables/useTodos'
 
@@ -128,9 +131,18 @@ const clearHistory = () => {
 }
 
 .modal-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
+}
+
+.modal-header-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--accent-primary);
 }
 
 .close-btn {
@@ -168,11 +180,25 @@ const clearHistory = () => {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.25rem;
+  gap: 0.35rem;
 }
 
 .stat-icon {
   font-size: 1.5rem;
+  line-height: 1;
+}
+
+.stat-icon-svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stat-icon-svg.text-accent {
+  color: var(--accent-primary);
+}
+
+.stat-icon-svg.text-green {
+  color: var(--accent-emerald);
 }
 
 .stat-value {

@@ -50,8 +50,8 @@
               <strong>Terapkan Sebagai Aplikasi Web (Deploy)</strong>
               <p>Klik tombol biru <b>Terapkan</b> (Deploy) &rarr; <b>Penerapan baru</b> (New deployment).</p>
               <div class="important-note">
-                <p>⚙️ Pilih jenis: <b>Aplikasi Web</b> (Web app)</p>
-                <p>👤 Pada kolom <i>"Yang memiliki akses" (Who has access)</i>: <b>Siapa saja (Anyone)</b> <span class="badge-vital">PENTING</span></p>
+                <p><Settings class="inline-note-icon" /> Pilih jenis: <b>Aplikasi Web</b> (Web app)</p>
+                <p><Users class="inline-note-icon" /> Pada kolom <i>"Yang memiliki akses" (Who has access)</i>: <b>Siapa saja (Anyone)</b> <span class="badge-vital">PENTING</span></p>
               </div>
             </div>
           </li>
@@ -77,7 +77,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { X, Copy, Check } from 'lucide-vue-next'
+import { X, Copy, Check, Settings, Users } from 'lucide-vue-next'
 
 defineEmits(['close'])
 
@@ -346,6 +346,22 @@ const copyCode = async () => {
   border-radius: 10px;
   font-size: 0.82rem;
   color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.important-note p {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.inline-note-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent-amber);
+  flex-shrink: 0;
 }
 
 .badge-vital {

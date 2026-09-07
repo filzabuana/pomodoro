@@ -12,18 +12,25 @@
 
       <!-- Right Actions: Sync Pill, Stats, Settings, Theme -->
       <div class="navbar-actions">
-        <!-- Sync Status Pill -->
+        <!-- Sync Status Button (Cloud / Google Sheets) -->
         <button 
           @click="$emit('open-settings')" 
           class="sync-pill"
           :class="syncPillClass"
           :title="syncTitle"
         >
-          <span class="status-indicator">
-            <span v-if="syncStatus === 'syncing'" class="spinner"></span>
-            <span v-else class="status-dot"></span>
+          <span class="sync-icon-wrapper">
+            <RefreshCw v-if="syncStatus === 'syncing'" class="sync-icon icon-spin" />
+            <CloudOff v-else-if="!isOnline" class="sync-icon" />
+            <Cloud v-else class="sync-icon" />
+            <span class="sync-dot-badge"></span>
           </span>
           <span class="sync-text">{{ syncLabel }}</span>
+        </button>
+
+        <!-- About Pomodoro Button -->
+        <button @click="$emit('open-about')" class="nav-icon-btn" title="Tentang Teknik Pomodoro">
+          <BookOpen class="icon" />
         </button>
 
         <!-- Stats Button -->
@@ -48,11 +55,11 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Settings, BarChart2, Sun, Moon } from 'lucide-vue-next'
+import { Settings, BarChart2, Sun, Moon, BookOpen, Cloud, CloudOff, RefreshCw } from 'lucide-vue-next'
 import { useSettings } from '../composables/useSettings'
 import { useSync } from '../composables/useSync'
 
-defineEmits(['open-settings', 'open-stats'])
+defineEmits(['open-settings', 'open-stats', 'open-about'])
 
 const { settings, toggleTheme } = useSettings()
 const { syncStatus, lastSyncTime, isOnline } = useSync()
@@ -143,7 +150,7 @@ const syncTitle = computed(() => {
   gap: 0.6rem;
 }
 
-/* Sync Pill */
+/* Sync Button (Pill on desktop, Icon on mobile) */
 .sync-pill {
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
@@ -151,7 +158,7 @@ const syncTitle = computed(() => {
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.5rem;
   border: 1px solid var(--border-color);
   background: var(--bg-input);
   color: var(--text-secondary);
@@ -163,36 +170,52 @@ const syncTitle = computed(() => {
   color: var(--text-primary);
 }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+.sync-icon-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.status-synced .status-dot {
+.sync-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.sync-icon.icon-spin {
+  animation: spin 1s linear infinite;
+  color: var(--accent-amber);
+}
+
+.sync-dot-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid var(--bg-input);
+}
+
+.status-synced .sync-dot-badge {
   background: var(--accent-emerald);
-  box-shadow: 0 0 8px var(--accent-emerald);
+  box-shadow: 0 0 6px var(--accent-emerald);
 }
 
-.status-syncing .spinner {
-  width: 10px;
-  height: 10px;
-  border: 2px solid var(--accent-amber);
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-.status-offline .status-dot {
+.status-syncing .sync-dot-badge {
   background: var(--accent-amber);
 }
 
-.status-error .status-dot {
-  background: var(--accent-focus);
-  box-shadow: 0 0 8px var(--accent-focus);
+.status-offline .sync-dot-badge {
+  background: var(--accent-amber);
 }
 
-.status-local .status-dot {
+.status-error .sync-dot-badge {
+  background: var(--accent-focus);
+  box-shadow: 0 0 6px var(--accent-focus);
+}
+
+.status-local .sync-dot-badge {
   background: var(--text-muted);
 }
 
@@ -218,5 +241,60 @@ const syncTitle = computed(() => {
 .nav-icon-btn .icon {
   width: 18px;
   height: 18px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .navbar-container {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .logo-area {
+    gap: 0.4rem;
+  }
+
+  .logo-icon {
+    font-size: 1.4rem;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 0.35rem;
+  }
+
+  .sync-pill {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 9px;
+  }
+
+  .sync-text {
+    display: none;
+  }
+
+  .sync-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .nav-icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+
+  .nav-icon-btn .icon {
+    width: 15px;
+    height: 15px;
+  }
 }
 </style>

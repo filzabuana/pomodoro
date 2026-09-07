@@ -170,6 +170,16 @@ input, textarea, select {
   animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+  .modal-content {
+    border-radius: 20px;
+    max-height: 94vh;
+  }
+}
+
 /* Animations */
 @keyframes fadeIn {
   from { opacity: 0; }

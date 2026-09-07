@@ -12,9 +12,13 @@
       <!-- Modal Body -->
       <div class="modal-body">
         <!-- 1. Google Sheets Integration Section -->
+        <!-- 1. Google Sheets Integration Section -->
         <div class="settings-section highlight-box">
           <div class="section-title-row">
-            <h4 class="section-heading">📊 Integrasi Google Sheets</h4>
+            <h4 class="section-heading">
+              <FileSpreadsheet class="section-title-icon" />
+              <span>Integrasi Google Sheets</span>
+            </h4>
             <button @click="$emit('open-guide')" class="guide-link-btn">
               <HelpCircle class="mini-icon" />
               <span>Panduan Setup (2 Menit)</span>
@@ -53,7 +57,10 @@
 
         <!-- 2. Timer Durations Section -->
         <div class="settings-section">
-          <h4 class="section-heading">⏱️ Durasi Timer (Menit)</h4>
+          <h4 class="section-heading">
+            <Clock class="section-title-icon" />
+            <span>Durasi Timer (Menit)</span>
+          </h4>
           <div class="grid-inputs">
             <div class="input-field">
               <label>Sesi Fokus</label>
@@ -100,7 +107,10 @@
 
         <!-- 3. Audio & Notifications Section -->
         <div class="settings-section">
-          <h4 class="section-heading">🔔 Audio & Notifikasi</h4>
+          <h4 class="section-heading">
+            <Bell class="section-title-icon" />
+            <span>Audio & Notifikasi</span>
+          </h4>
           <div class="toggle-list">
             <label class="toggle-row">
               <span class="toggle-label">Suara Bel & Notifikasi Suara</span>
@@ -127,7 +137,10 @@
 
         <!-- 4. Backup & Restore Section -->
         <div class="settings-section">
-          <h4 class="section-heading">💾 Cadangan Lokal (JSON)</h4>
+          <h4 class="section-heading">
+            <HardDrive class="section-title-icon" />
+            <span>Cadangan Lokal (JSON)</span>
+          </h4>
           <p class="section-desc">Unduh atau pulihkan seluruh data Anda ke file cadangan JSON.</p>
           <div class="backup-actions">
             <button @click="handleExport" class="backup-btn">
@@ -154,7 +167,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { X, HelpCircle, Activity, Volume2, Download, Upload } from 'lucide-vue-next'
+import { X, HelpCircle, Activity, Volume2, Download, Upload, FileSpreadsheet, Clock, Bell, HardDrive } from 'lucide-vue-next'
 import { useSettings } from '../composables/useSettings'
 import { useSync } from '../composables/useSync'
 import { sound } from '../services/audio'
@@ -289,9 +302,19 @@ const handleImport = (e) => {
 }
 
 .section-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
+}
+
+.section-title-icon {
+  width: 17px;
+  height: 17px;
+  color: var(--accent-primary);
+  flex-shrink: 0;
 }
 
 .section-desc {

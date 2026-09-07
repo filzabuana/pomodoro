@@ -7,21 +7,24 @@
         class="mode-tab" 
         :class="{ active: mode === 'focus' }"
       >
-        🎯 Fokus
+        <Target class="tab-icon" />
+        <span>Fokus</span>
       </button>
       <button 
         @click="switchMode('shortBreak')" 
         class="mode-tab" 
         :class="{ active: mode === 'shortBreak' }"
       >
-        ☕ Istirahat
+        <Coffee class="tab-icon" />
+        <span>Istirahat</span>
       </button>
       <button 
         @click="switchMode('longBreak')" 
         class="mode-tab" 
         :class="{ active: mode === 'longBreak' }"
       >
-        🌴 Santai
+        <Sparkles class="tab-icon" />
+        <span>Santai</span>
       </button>
     </div>
 
@@ -105,7 +108,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { Play, Pause, RotateCcw, SkipForward } from 'lucide-vue-next'
+import { Play, Pause, RotateCcw, SkipForward, Target, Coffee, Sparkles } from 'lucide-vue-next'
 import { usePomodoro } from '../composables/usePomodoro'
 import { useTodos } from '../composables/useTodos'
 
@@ -172,6 +175,8 @@ const strokeDashStyle = computed(() => {
 
 <style scoped>
 .timer-card {
+  width: 100%;
+  max-width: 460px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -180,6 +185,7 @@ const strokeDashStyle = computed(() => {
   overflow: hidden;
   box-shadow: 0 12px 36px -8px var(--current-glow);
   transition: all 0.4s ease;
+  margin: 0 auto;
 }
 
 /* Mode Tabs */
@@ -194,12 +200,20 @@ const strokeDashStyle = computed(() => {
 }
 
 .mode-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   padding: 0.5rem 1.15rem;
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
   transition: all 0.25s ease;
+}
+
+.tab-icon {
+  width: 15px;
+  height: 15px;
 }
 
 .mode-tab:hover {
@@ -377,12 +391,98 @@ const strokeDashStyle = computed(() => {
 }
 
 @media (max-width: 480px) {
-  .ring-container {
-    width: 280px;
-    height: 280px;
+  .timer-card {
+    padding: 1.75rem 1.15rem;
+    border-radius: 24px;
   }
+
+  .mode-tabs {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 1.5rem;
+    gap: 0.25rem;
+    padding: 0.3rem;
+  }
+
+  .mode-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 0.45rem 0.5rem;
+    font-size: 0.8rem;
+    gap: 0.35rem;
+  }
+
+  .tab-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .ring-container {
+    width: 285px;
+    height: 285px;
+  }
+
   .countdown-display {
-    font-size: 3.6rem;
+    font-size: 3.85rem;
+  }
+
+  .mode-badge {
+    font-size: 0.7rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .active-task-chip {
+    max-width: 200px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    margin-top: 0.85rem;
+  }
+
+  .no-task-hint {
+    margin-top: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .timer-controls {
+    margin-top: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .ctrl-btn.primary {
+    width: 72px;
+    height: 72px;
+  }
+
+  .ctrl-btn.secondary {
+    width: 48px;
+    height: 48px;
+  }
+
+  .ctrl-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ctrl-icon.main {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Extra small screens (e.g. 320px) */
+@media (max-width: 340px) {
+  .ring-container {
+    width: 245px;
+    height: 245px;
+  }
+
+  .countdown-display {
+    font-size: 3.2rem;
+  }
+
+  .mode-tab {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.3rem;
   }
 }
 </style>

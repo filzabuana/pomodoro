@@ -128,4 +128,26 @@ const { activeTask, toggleTask, setActiveTask } = useTodos()
   width: 14px;
   height: 14px;
 }
+
+@media (max-width: 480px) {
+  .active-banner {
+    padding: 0.65rem 0.85rem;
+    gap: 0.5rem;
+  }
+
+  .task-title {
+    max-width: 120px;
+    font-size: 0.85rem;
+  }
+
+  .pomo-count-tag {
+    font-size: 0.68rem;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .banner-action-btn {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.75rem;
+  }
+}
 </style>
